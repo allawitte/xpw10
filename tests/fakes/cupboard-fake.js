@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 class CupboardFake {
     constructor() {
         this._isEmpty = false;
@@ -19,6 +21,10 @@ class CupboardFake {
 
     set empty(value) {
         this._isEmpty = value;
+    }
+
+    isDrinkAvailble(drinkName, volume) {
+        
     }
 }
 

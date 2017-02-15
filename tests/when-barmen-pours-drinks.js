@@ -7,6 +7,7 @@ var sinon = require('sinon');
 var SmsService = require('../src/sms-service');
 var Visitor = require('../src/visitor');
 var CupboardFake = require('../tests/fakes/cupboard-fake');
+var Cupboard = require('../src/cupboard');
 var SmsServiceFake = require('../tests/fakes/sms-service-fake');
 
 suite('When barmen pours drinks', function () {
@@ -23,14 +24,15 @@ suite('When barmen pours drinks', function () {
             emptyCupboard.empty = true;
         });
 
-        test('sms to buy drink is sent to boss', function () {
+        /*test('sms to buy drink is sent to boss', function () {
             let smsService = new SmsServiceFake();
             barmen = new Barmen(emptyCupboard, smsService);
 
             barmen.pour("vodka", 100, visitor);
 
             assert.equal(smsService.lastSentSms, "Hello. We have run out of vodka. Please buy several bottles.");
-        });
+        });*/
+
 
 
 
@@ -39,12 +41,19 @@ suite('When barmen pours drinks', function () {
         test('sms service is called if no drink is available', function () {
             let smsService = new SmsService();
             let smsServiceMock = sinon.mock(smsService);
-            barmen = new Barmen(emptyCupboard, smsService);
+            let cupboard = new Cupboard();
+            let cupboardMock = sinon.mock(cupboard);
+            cupboardMock.expects("hasDrink")
+                .once()
+                .withArgs('vodka', 200);
+            barmen = new Barmen(cupboard, smsService);
+            cupboardMock.verify();
             smsServiceMock.expects("send")
                 .once()
                 .withArgs("Hello. We have run out of vodka. Please buy several bottles.");
 
             barmen.pour("vodka", 100, visitor);
+
 
             smsServiceMock.verify();
             smsServiceMock.restore();
@@ -55,14 +64,14 @@ suite('When barmen pours drinks', function () {
 
 
 
-        test('barmen sends sms to buy drink to boss', function () {
+        /*test('barmen sends sms to buy drink to boss', function () {
             let smsService = new SmsServiceFake();
             barmen = new Barmen(emptyCupboard, smsService);
 
             barmen.pour("vodka", 100, visitor);
 
             assert.equal(true, barmen.wasSmsSent);
-        });
+        });*/
 
     });
 
