@@ -1,4 +1,3 @@
-var accounting = require('../src/accounting');
 class Visitor {
     constructor() {
         this.totalDrinkVolume = 0;
@@ -9,7 +8,7 @@ class Visitor {
         return volume;
     }
     
-    pay(amount){
+    pay(accounting, amount){
         accounting.addPayment(amount);
     }
 

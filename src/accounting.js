@@ -5,9 +5,16 @@ class Accounting {
     }
     
     addPayment(value){
+        //access to data base with all day income
         this._income += value;
     }
+
+    get statement(){
+        return this._income;
+    }
 }
+
+module.exports = Accounting;
 /**
  * Created by HP on 3/10/2017.
  */
