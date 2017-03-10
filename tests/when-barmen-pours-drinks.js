@@ -41,19 +41,17 @@ suite('When barmen pours drinks', function () {
         test('sms service is called if no drink is available', function () {
             let smsService = new SmsService();
             let smsServiceMock = sinon.mock(smsService);
-            let cupboard = new Cupboard();
-            let cupboardMock = sinon.mock(cupboard);
-            cupboardMock.expects("hasDrink")
-                .once()
-                .withArgs('vodka', 200);
-            barmen = new Barmen(cupboard, smsService);
-            cupboardMock.verify();
+            
+            let cupboardWithNoEnoughVodka = new Cupboard();
+            cupboardWithNoEnoughVodka.setDrink('vodka', 100);
+
+            barmen = new Barmen(cupboardWithNoEnoughVodka, smsService);
+
             smsServiceMock.expects("send")
                 .once()
                 .withArgs("Hello. We have run out of vodka. Please buy several bottles.");
 
-            barmen.pour("vodka", 100, visitor);
-
+            barmen.pour("vodka", 200, visitor);
 
             smsServiceMock.verify();
             smsServiceMock.restore();

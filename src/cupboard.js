@@ -1,6 +1,12 @@
 'use strict';
 
 class Cupboard {
+    constructor(){
+        this._drinkBase = {};
+    }
+    setDrink(name, volume){
+        this._drinkBase[name] = volume;
+    }
     isOpen() {
         // Database request
         //
@@ -17,6 +23,9 @@ class Cupboard {
         // repository.hasDrink(drinkName);
         // ...
         //
+        if(this._drinkBase[drinkName] - volume < 0){
+            return false;
+        }
 
         return true;
     };
