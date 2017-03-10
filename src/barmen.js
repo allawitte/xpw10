@@ -5,6 +5,7 @@ class Barmen {
         this._cupboard = cupboard;
         this._smsService = smsService;
         this._wasSmsSent = false;
+        console.log('this._cupboard', this._cupboard);
     }
 
     get wasSmsSent() {
