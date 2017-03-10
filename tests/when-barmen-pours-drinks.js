@@ -9,7 +9,7 @@ var SmsService = require('../src/sms-service');
 var Cupboard = require('../src/cupboard');
 
 suite('When barmen pours drinks', function () {
-    suite('cupboard is empty', function () {
+    suite('not enough vodka in cupboard', function () {
         let barmen = {};
         let visitor = {};
         let cupboardWithNoEnoughVodka = {};
